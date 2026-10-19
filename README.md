@@ -2,15 +2,80 @@
 
 Two browser tools that use real Coinbase price history to answer the questions retail crypto investors should ask first. Neither tool promises returns; both show the odds and how much to trust them.
 
-**Live app:** _add your Streamlit link here after deploying_
+## Try it online (no install)
 
-## The tools
+**👉 [Open Crypto Toolkit](https://add-your-streamlit-link-here)**
+
+Works in any browser. If nobody has used it in the last 12 hours, it takes about a minute to wake up.
+
+## How to use it
+
+Pick a tool from the menu at the top of the page.
 
 **🧭 Reality Check: is my goal realistic for my risk?**
-Enter an amount, the most you're willing to lose, a target gain, and a timeframe. The app replays about three years of daily prices for the 25 most-traded coins, sizes each position so a bad-case dip stays inside your loss limit, and reports how often your goal was actually reached, with fees included.
+
+1. Enter how much you'd invest, the most you're OK losing, your goal (%), and a timeframe.
+2. Press **Show my options**. The first run downloads about 3 years of prices and takes about a minute.
+3. Read the **Reality check** box first: it says whether your goal is reachable, possible, or a stretch at your risk level, and what to change if it's a stretch.
+4. Scan **Your options** to see how much to put in each coin, how often your goal was reached in the past, and typical and bad-case results in dollars.
 
 **🔭 Forecast Lab: where might a coin go, and should I trust the forecast?**
-Pick any coin on Coinbase and a horizon from 1 day to 3 months. The app forecasts the chance of a rise, a calibrated price range, and expected volatility, then grades its own past forecasts with walk-forward testing and tells you plainly when it has no proven skill.
+
+1. Pick any coin on Coinbase and drag the slider to a timeframe from 1 day to 3 months.
+2. Press **Run forecast**. The first run for each coin takes about a minute while it downloads data and tests itself.
+3. Read the three results: the chance it ends higher, the likely price range, and the expected swing.
+4. Check the **How much to trust this** box before relying on the direction call:
+
+| Box color | Meaning | How to use the forecast |
+| --- | --- | --- |
+| Green | The direction call has shown some skill on past data | One input among others, never a sure thing |
+| Yellow | Only slightly better than guessing | A weak hint; lean on the range and swing |
+| Red | Has not beaten simple guessing | Ignore the direction; use only the range and swing |
+
+Open **Under the hood** to see what's driving the forecast, its track record, the math, and which data sources loaded.
+
+## Run it on your own computer
+
+You need **Python 3.11 or newer** ([download](https://www.python.org/downloads/)).
+
+**1. Get the code.** Pick one:
+
+- **No Git:** click the green **Code** button at the top of this page, choose **Download ZIP**, and unzip it. The folder will be called `crypto-toolkit-main`.
+- **With Git:**
+
+  ```bash
+  git clone https://github.com/YOUR-USERNAME/crypto-toolkit.git
+  ```
+
+**2. Open a terminal inside the project folder.** This step matters: the commands below only work from inside the folder.
+
+```bash
+cd ~/Downloads/crypto-toolkit-main   # if you downloaded the ZIP
+cd crypto-toolkit                    # if you used git clone
+```
+
+**3. Install the packages** (first time only):
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+**4. Start the app:**
+
+```bash
+python -m streamlit run streamlit_app.py
+```
+
+Your browser opens to `http://localhost:8501`. Keep the terminal open while you use the app, and press **Control + C** in it to stop.
+
+**Troubleshooting**
+
+| What you see | Fix |
+| --- | --- |
+| `File does not exist: streamlit_app.py` or `Could not open requirements file` | You're not inside the project folder. Repeat step 2. |
+| `No module named streamlit` | Run step 3 again. |
+| Streamlit asks for an email the first time | Press Return to skip it. |
+| A data source shows "unavailable" in Forecast Lab | A free source is briefly down; the forecast runs without it. |
 
 ## Methods
 
@@ -26,13 +91,6 @@ Pick any coin on Coinbase and a horizon from 1 day to 3 months. The app forecast
 ## Data (all free, no API keys)
 
 Coinbase (prices and volume), FRED (S&P 500, Nasdaq, VIX, 10-year yield, US dollar), Alternative.me (Crypto Fear & Greed Index), GDELT (crypto news tone), and Wikipedia (daily page views as a public-attention signal).
-
-## Run it locally
-
-```bash
-pip install -r requirements.txt
-streamlit run streamlit_app.py
-```
 
 ## Project structure
 
